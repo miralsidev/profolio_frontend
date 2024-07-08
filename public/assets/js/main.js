@@ -123,11 +123,11 @@ Description: Gerold - Personal Portfolio HTML5 Template
 			onPageNav(".side-navbar a");
 		});
 
-		$(".header-menu nav ul").onePageNav({
-			currentClass: "current-menu-ancestor",
-			changeHash: false,
-			easing: "swing",
-		});
+		// $(".header-menu nav ul").onePageNav({
+		// 	currentClass: "current-menu-ancestor",
+		// 	changeHash: false,
+		// 	easing: "swing",
+		// });
 
 		/*------------------------------------------------------
   	/  Portfolio Filter

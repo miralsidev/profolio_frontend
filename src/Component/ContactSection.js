@@ -1,7 +1,26 @@
+import axios from 'axios'
+import { Field, Form, Formik } from 'formik'
 import React from 'react'
 import { Link } from 'react-router-dom'
-
+import { ToastContainer, toast } from 'react-toastify';
+import 'react-toastify/dist/ReactToastify.css';
 const ContactSection = () => {
+  const handleSubmitEvent= async(values,{ resetForm}) =>{
+    console.log("values == ",values);
+    const res = await axios.post("http://localhost:5000/Contact/contact",{
+      fname:values.fname,
+      lname:values.lname,
+      email:values.email,
+      PhoneNo:values.PhoneNo,
+      Message:values.Message
+    })
+    console.log("res == ",res);
+
+    toast.success("Thank you for contacting us!");
+    // resertForm()
+    resetForm();
+
+  }
   return (
     <>
     <section className="contact-section" id="contact-section">
@@ -17,11 +36,24 @@ const ContactSection = () => {
               </div>
 
               <div className="tj-contact-form">
-                <form action="index.html">
+
+              <Formik  
+              initialValues={{
+                fname:"",
+                lname:"",
+                email:"",
+                PhoneNo:"",
+                Message:""
+              }}
+              onSubmit={handleSubmitEvent}
+
+              >
+
+                <Form action="index.html">
                   <div className="row gx-3">
                     <div className="col-sm-6">
                       <div className="form_group">
-                        <input
+                        <Field
                           type="text"
                           name="fname"
                           id="fname"
@@ -32,7 +64,7 @@ const ContactSection = () => {
                     </div>
                     <div className="col-sm-6">
                       <div className="form_group">
-                        <input
+                        <Field
                           type="text"
                           name="lname"
                           id="lname"
@@ -43,7 +75,7 @@ const ContactSection = () => {
                     </div>
                     <div className="col-sm-6">
                       <div className="form_group">
-                        <input
+                        <Field
                           type="email"
                           name="email"
                           id="email"
@@ -54,9 +86,9 @@ const ContactSection = () => {
                     </div>
                     <div className="col-sm-6">
                       <div className="form_group">
-                        <input
+                        <Field
                           type="tel"
-                          name="phone"
+                          name="PhoneNo"
                           id="phone"
                           placeholder="Phone number"
                           autoComplete="off"
@@ -78,7 +110,7 @@ const ContactSection = () => {
                     </div> */}
                     <div className="col-12">
                       <div className="form_group">
-                        <textarea name="message" id="message" placeholder="Message"></textarea>
+                        <Field  as="textarea" name="Message" id="message" placeholder="Message"></Field>
                       </div>
                     </div>
                     <div className="col-12">
@@ -89,7 +121,10 @@ const ContactSection = () => {
                       </div>
                     </div>
                   </div>
-                </form>
+                </Form>
+                </Formik>
+                <ToastContainer />
+
               </div>
             </div>
           </div>
